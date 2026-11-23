@@ -378,7 +378,9 @@ body {
     cursor: grabbing;
 }
 
-#close-notes {
+/* Window close buttons */
+#close-notes,
+#close-terminal {
     background: none;
     border: none;
 
@@ -388,7 +390,8 @@ body {
     cursor: pointer;
 }
 
-#close-notes:hover {
+#close-notes:hover,
+#close-terminal:hover {
     color: #FF5555;
 }
 
@@ -410,4 +413,49 @@ body {
     color: var(--text);
     font-family: Arial, sans-serif;
     font-size: 14px;
+}
+/* Terminal application */
+.terminal-content {
+    height: calc(100% - 55px);
+    padding: 15px;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: #050A12;
+
+    font-family: monospace;
+    font-size: 13px;
+
+    overflow: hidden;
+}
+
+#terminal-output {
+    flex: 1;
+    overflow-y: auto;
+}
+
+#terminal-output p {
+    margin-bottom: 8px;
+    color: var(--neon-cyan);
+}
+
+.terminal-input-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: var(--neon-cyan);
+}
+
+#terminal-input {
+    flex: 1;
+
+    background: transparent;
+    border: none;
+    outline: none;
+
+    color: var(--text);
+    font-family: monospace;
+    font-size: 13px;
 }

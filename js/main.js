@@ -132,6 +132,30 @@ closeNotes.addEventListener("click", function() {
 
 });
 
+// TERMINAL APPLICATION
+
+// Get terminal application elements
+const terminalIcon = document.getElementById("terminal-icon");
+const terminalWindow = document.getElementById("terminal-window");
+const closeTerminal = document.getElementById("close-terminal");
+
+// Open terminal window
+terminalIcon.addEventListener("click", function() {
+
+    openWindow(terminalWindow);
+
+});
+
+// Close terminal window
+closeTerminal.addEventListener("click", function() {
+
+    closeWindow(terminalWindow);
+
+});
+
+// Enable terminal window dragging
+makeDraggable(terminalWindow);
+
 
 // WINDOW SYSTEM
 

@@ -113,7 +113,7 @@
                     <p>Notas</p>
                 </div>
 
-                <div class="desktop-icon">
+                <div class="desktop-icon" id="terminal-icon">
                     <span>⌘</span>
                     <p>Terminal</p>
                 </div>
@@ -139,6 +139,39 @@
                 <div class="window-content">
 
                     <textarea placeholder="Escreva suas anotações aqui..."></textarea>
+
+                </div>
+
+            </div>
+
+            <!-- Terminal application window -->
+            <div id="terminal-window" class="app-window hidden">
+
+                <div class="window-header">
+
+                    <h3>Terminal</h3>
+
+                    <button id="close-terminal">✕</button>
+
+                </div>
+
+                <div class="terminal-content">
+
+                    <div id="terminal-output">
+
+                        <p>NEXUS OS [versão 1.0]</p>
+                        <p>Terminal iniciado com sucesso.</p>
+                        <p>Digite "help" para consultar os comandos disponíveis.</p>
+
+                    </div>
+
+                    <div class="terminal-input-container">
+
+                        <span>nexus@system:~$</span>
+
+                        <input type="text" id="terminal-input" autocomplete="off">
+
+                    </div>
 
                 </div>
 
