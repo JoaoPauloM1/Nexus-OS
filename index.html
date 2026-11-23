@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NEXUS OS</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="js/audio.js" defer></script>
+    <script src="js/main.js" defer></script>
+</head>
+
+<body>
+
+    <!-- System initialization screen -->
+    <main id="boot-screen" class="boot-screen">
+
+        <div class="boot-content">
+
+            <h1>NEXUS OS</h1>
+
+            <p class="boot-subtitle">
+                SISTEMA OPERACIONAL DA PRÓXIMA GERAÇÃO
+            </p>
+
+            <div class="boot-status">
+                SISTEMA PRONTO
+            </div>
+
+            <button id="boot-button">
+                <span>⏻</span>
+                INICIAR SISTEMA
+            </button>
+
+            <p class="boot-footer">
+                ÁUDIO HABILITADO · VERSÃO 1.0
+            </p>
+
+        </div>
+
+    </main>
+
+    <!-- System loading screen -->
+    <main id="loading-screen" class="loading-screen hidden">
+
+        <div class="loading-content">
+
+            <h1>NEXUS OS</h1>
+
+            <p class="loading-subtitle">INICIALIZANDO SISTEMA</p>
+
+            <!-- Loading animation -->
+            <div class="loading-bar">
+                <div id="loading-progress" class="loading-progress"></div>
+            </div>
+
+            <p id="loading-message">Preparando ambiente...</p>
+
+            <span id="loading-percentage">0%</span>
+
+        </div>
+
+    </main>
+
+    <!-- Main desktop -->
+    <main id="desktop" class="desktop hidden">
+
+        <!-- System header -->
+        <header class="system-header">
+
+            <h1>NEXUS OS</h1>
+
+            <span class="system-status">
+                SISTEMA ONLINE
+            </span>
+
+        </header>
+
+        <!-- Desktop content -->
+        <section class="desktop-content">
+
+            <div class="welcome">
+
+                <h2>Bem-vindo de volta, Usuário.</h2>
+
+                <p>Seu sistema está pronto.</p>
+
+            </div>
+
+            <!-- Desktop clock -->
+            <div class="clock-container">
+
+                <h2 id="clock">00:00:00</h2>
+
+                <p id="date">Carregando data...</p>
+
+            </div>
+
+            <!-- Desktop applications -->
+            <div class="desktop-icons">
+
+                <div class="desktop-icon">
+                    <span>▤</span>
+                    <p>Arquivos</p>
+                </div>
+
+                <div class="desktop-icon"  id="notes-icon">
+                    <span>▧</span>
+                    <p>Notas</p>
+                </div>
+
+                <div class="desktop-icon">
+                    <span>⌘</span>
+                    <p>Terminal</p>
+                </div>
+
+                <div class="desktop-icon">
+                    <span>⚙</span>
+                    <p>Configurações</p>
+                </div>
+
+            </div>
+
+            <!-- Notes application window -->
+            <div id="notes-window" class="app-window hidden">
+
+                <div class="window-header">
+
+                    <h3>Notas</h3>
+
+                    <button id="close-notes">✕</button>
+
+                </div>
+
+                <div class="window-content">
+
+                    <textarea placeholder="Escreva suas anotações aqui..."></textarea>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Bottom taskbar -->
+        <footer class="taskbar">
+
+            <div class="taskbar-brand">
+                NEXUS
+            </div>
+
+            <div class="taskbar-apps">
+                <span>▤</span>
+                <span>▧</span>
+                <span>⌘</span>
+                <span>⚙</span>
+            </div>
+
+            <div class="taskbar-version">
+                SISTEMA v1.0
+            </div>
+
+        </footer>
+
+    </main>
+
+</body>
+</html>
