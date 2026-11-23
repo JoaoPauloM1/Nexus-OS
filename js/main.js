@@ -1,4 +1,3 @@
-
 // Get HTML elements
 const bootScreen = document.getElementById("boot-screen");
 const loadingScreen = document.getElementById("loading-screen");
@@ -171,22 +170,55 @@ function focusWindow(windowElement) {
 
 }
 
-// Open an application window
+
+ // Open an application window
 function openWindow(windowElement) {
 
+    // Show window
     windowElement.classList.remove("hidden");
 
+    // Remove closing animation if present
+    windowElement.classList.remove("window-closing");
+
+    // Start opening animation
+    windowElement.classList.add("window-opening");
+
+    // Bring window to the front
     focusWindow(windowElement);
+
+    // Remove opening animation class after animation
+    windowElement.addEventListener("animationend", function(event) {
+
+        if (event.target === windowElement) {
+            windowElement.classList.remove("window-opening");
+        }
+
+    }, { once: true });
 
 }
 
 // Close an application window
 function closeWindow(windowElement) {
 
-    windowElement.classList.add("hidden");
+    // Remove opening animation
+    windowElement.classList.remove("window-opening");
+
+    // Start closing animation
+    windowElement.classList.add("window-closing");
+
+    // Hide window after animation finishes
+    windowElement.addEventListener("animationend", function(event) {
+
+        if (event.target === windowElement) {
+
+            windowElement.classList.add("hidden");
+            windowElement.classList.remove("window-closing");
+
+        }
+
+    }, { once: true });
 
 }
-
 
 // Make an application window draggable
 function makeDraggable(windowElement) {
