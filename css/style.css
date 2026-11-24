@@ -354,6 +354,9 @@ body {
     box-shadow: 0 0 25px #00D9FF30;
 
     overflow: hidden;
+
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    border: 1px solid #176BFF60;
 }
 
 .window-header {
@@ -494,4 +497,14 @@ body {
         scale: 0.95;
         translate: 0 10px;
     }
+}
+
+/* Active application window */
+.app-window.active {
+    border-color: var(--neon-cyan);
+
+    box-shadow:
+        0 0 10px #00D9FF40,
+        0 0 25px #00D9FF30,
+        inset 0 0 10px #00D9FF10;
 }
