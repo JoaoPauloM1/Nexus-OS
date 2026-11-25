@@ -382,7 +382,9 @@ body {
 
 /* Window close buttons */
 #close-notes,
-#close-terminal {
+#close-terminal,
+#close-files,
+#close-preview {
     background: none;
     border: none;
 
@@ -393,7 +395,9 @@ body {
 }
 
 #close-notes:hover,
-#close-terminal:hover {
+#close-terminal:hover,
+#close-files:hover,
+#close-preview:hover {
     color: #FF5555;
 }
 
@@ -416,6 +420,7 @@ body {
     font-family: Arial, sans-serif;
     font-size: 14px;
 }
+
 /* Terminal application */
 .terminal-content {
     height: calc(100% - 55px);
@@ -507,4 +512,164 @@ body {
         0 0 10px #00D9FF40,
         0 0 25px #00D9FF30,
         inset 0 0 10px #00D9FF10;
+}
+
+/* File Manager application */
+.files-content {
+    display: flex;
+    height: calc(100% - 55px);
+
+    background-color: #050A12;
+    color: var(--text);
+}
+
+/* File Manager sidebar */
+.files-sidebar {
+    width: 125px;
+    padding: 12px 8px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    background-color: #0A1424;
+    border-right: 1px solid #176BFF60;
+}
+
+/* Sidebar folder buttons */
+.folder-button {
+    padding: 10px 8px;
+
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+
+    color: var(--text);
+    text-align: left;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.folder-button:hover {
+    background-color: #176BFF30;
+    color: var(--neon-cyan);
+}
+
+/* Main file area */
+.files-main {
+    flex: 1;
+    padding: 12px;
+
+    overflow-y: auto;
+}
+
+/* File Manager toolbar */
+.files-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+
+    border-bottom: 1px solid #176BFF60;
+}
+
+#back-folder {
+    padding: 6px 10px;
+
+    background-color: #176BFF30;
+    border: 1px solid #176BFF60;
+    border-radius: 5px;
+
+    color: var(--neon-cyan);
+    cursor: pointer;
+}
+
+#back-folder:hover {
+    background-color: #176BFF60;
+}
+
+#current-folder {
+    color: var(--neon-cyan);
+    font-weight: bold;
+}
+
+/* File and folder items */
+.file-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 10px;
+    margin-bottom: 5px;
+
+    border: 1px solid transparent;
+    border-radius: 5px;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.file-item:hover {
+    background-color: #176BFF25;
+    border-color: #176BFF60;
+}
+
+.file-icon {
+    font-size: 22px;
+}
+
+.file-name {
+    color: var(--text);
+    font-size: 13px;
+}
+
+/* File Preview application */
+#file-preview-window {
+    width: 550px;
+    height: 400px;
+}
+
+/* File Preview content */
+.file-preview-content {
+    height: calc(100% - 55px);
+    padding: 20px;
+
+    background-color: #050A12;
+    color: var(--text);
+
+    overflow: auto;
+}
+
+/* Text file preview */
+#file-preview-text {
+    color: var(--neon-cyan);
+    font-family: monospace;
+    font-size: 13px;
+
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}
+
+/* Image file preview */
+#file-preview-image {
+    display: block;
+
+    max-width: 100%;
+    max-height: 290px;
+
+    margin: auto;
+
+    object-fit: contain;
+}
+
+/* File information message */
+#file-preview-message {
+    color: var(--neon-cyan);
+    font-size: 14px;
+    text-align: center;
+
+    margin-top: 30px;
 }

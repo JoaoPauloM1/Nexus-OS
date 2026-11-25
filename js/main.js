@@ -463,6 +463,436 @@ terminalInput.addEventListener("keydown", function(event) {
 
 });
 
+// FILE MANAGER APPLICATION
+
+// Get File Manager elements
+const filesIcon = document.getElementById("files-icon");
+const filesWindow = document.getElementById("files-window");
+const closeFiles = document.getElementById("close-files");
+// Get File Preview elements
+const previewWindow = document.getElementById("file-preview-window");
+const closePreview = document.getElementById("close-preview");
+const previewTitle = document.getElementById("preview-title");
+const previewText = document.getElementById("file-preview-text");
+const previewImage = document.getElementById("file-preview-image");
+const previewMessage = document.getElementById("file-preview-message");
+
+// Open File Manager window
+filesIcon.addEventListener("click", function() {
+    openWindow(filesWindow);
+
+    // Display the current directory
+    renderFiles();
+});
+
+// Close File Manager window
+closeFiles.addEventListener("click", function() {
+    closeWindow(filesWindow);
+});
+
+// Enable dragging for File Manager window
+makeDraggable(filesWindow);
+// Close File Preview window
+closePreview.addEventListener("click", function() {
+    closeWindow(previewWindow);
+});
+
+// Enable dragging for File Preview window
+makeDraggable(previewWindow);
+
+// File Manager directory structure
+const fileSystem = {
+    home: [
+        { name: "Documentos", type: "folder", target: "documents" },
+        { name: "Imagens", type: "folder", target: "images" },
+        { name: "Downloads", type: "folder", target: "downloads" }
+    ],
+
+    documents: [
+        { name: "Manual.txt", type: "file" },
+        { name: "Sobre-o-sistema.txt", type: "file" }
+    ],
+
+    images: [
+        { name: "Wallpaper.png", type: "file" }
+    ],
+
+    downloads: [
+        { name: "Atualizacao.zip", type: "file" }
+    ]
+};
+
+// Store simulated file contents
+const fileContents = {
+
+    "Manual.txt": `========================================
+            NEXUS OS
+        MANUAL DO USUARIO
+    ========================================
+
+    BEM-VINDO AO NEXUS OS
+
+    O NEXUS OS e um ambiente operacional
+    futurista desenvolvido para proporcionar
+    uma experiencia digital interativa.
+
+    ----------------------------------------
+    1. AREA DE TRABALHO
+    ----------------------------------------
+
+    A area de trabalho e o ponto central
+    do sistema.
+
+    Nela voce encontra os aplicativos
+    disponiveis, o relogio e a barra de tarefas.
+
+    ----------------------------------------
+    2. GERENCIADOR DE ARQUIVOS
+    ----------------------------------------
+
+    Utilize o Gerenciador de Arquivos para
+    navegar pelos diretorios do sistema.
+
+    Diretorios disponiveis:
+
+    - Documentos
+    - Imagens
+    - Downloads
+
+    Clique em uma pasta para acessar seu
+    conteudo.
+
+    Utilize o botao Voltar para retornar
+    ao diretorio anterior.
+
+    Clique em um arquivo para abrir sua
+    visualizacao.
+
+    ----------------------------------------
+    3. APLICATIVO NOTAS
+    ----------------------------------------
+
+    O aplicativo Notas permite escrever
+    e armazenar anotacoes.
+
+    As alteracoes sao salvas automaticamente
+    no armazenamento local do navegador.
+
+    Suas anotacoes permanecem disponiveis
+    mesmo depois de fechar o aplicativo.
+
+    ----------------------------------------
+    4. TERMINAL
+    ----------------------------------------
+
+    O Terminal permite interagir com o
+    sistema atraves de comandos.
+
+    Digite "ajuda" para consultar a lista
+    de comandos disponiveis.
+
+    Alguns comandos:
+
+    - data
+    - sobre
+    - versao
+    - status
+    - tempo
+    - limpar
+    - historico
+
+    ----------------------------------------
+    5. DICAS DE UTILIZACAO
+    ----------------------------------------
+
+    - Arraste as janelas pelo cabecalho.
+    - Utilize o botao X para fechar aplicativos.
+    - Clique novamente nos icones para abrir
+      os aplicativos.
+    - Explore os diretorios disponiveis.
+
+    ----------------------------------------
+    6. INFORMACOES IMPORTANTES
+    ----------------------------------------
+
+    O NEXUS OS e um ambiente simulado.
+
+    Algumas operacoes, como a extracao de
+    arquivos compactados e o acesso ao
+    sistema de arquivos real do computador,
+    ainda nao estao implementadas.
+
+    ========================================
+        FIM DO MANUAL
+    ========================================`,
+
+    "Sobre-o-sistema.txt": `========================================
+              NEXUS OS
+          SOBRE O SISTEMA
+    ========================================
+
+    IDENTIDADE DO SISTEMA
+
+    Nome: NEXUS OS
+    Versao: 1.0
+    Categoria: Sistema operacional simulado
+    Plataforma: Web
+
+    ----------------------------------------
+    NOSSA PROPOSTA
+    ----------------------------------------
+
+    O NEXUS OS e um projeto experimental
+    que simula a experiencia de utilizacao
+    de um sistema operacional diretamente
+    no navegador.
+
+    Seu desenvolvimento utiliza tecnologias
+    fundamentais da web:
+
+    - HTML
+    - CSS
+    - JavaScript
+
+    ----------------------------------------
+    RECURSOS IMPLEMENTADOS
+    ----------------------------------------
+
+    - Area de trabalho interativa
+    - Gerenciador de arquivos
+    - Navegacao entre diretorios
+    - Visualizador de documentos
+    - Visualizador de imagens
+    - Aplicativo de notas
+    - Terminal com comandos
+    - Janelas flutuantes e movimentaveis
+    - Relogio e barra de tarefas
+
+    ----------------------------------------
+    FILOSOFIA DO PROJETO
+    ----------------------------------------
+
+    O objetivo do NEXUS OS e explorar
+    conceitos de interfaces, interatividade
+    e simulacao de ambientes operacionais.
+
+    O projeto esta em desenvolvimento e
+    novas funcionalidades poderao ser
+    incorporadas em versoes futuras.
+
+    ----------------------------------------
+    STATUS
+    ----------------------------------------
+
+    Sistema: ONLINE
+    Versao atual: 1.0
+    Estado: Em desenvolvimento
+
+    ========================================
+          FIM DAS INFORMACOES
+    ========================================`
+
+};
+
+// Get File Manager interface elements
+const filesList = document.getElementById("files-list");
+const currentFolder = document.getElementById("current-folder");
+const backFolder = document.getElementById("back-folder");
+
+// Store the current directory
+let currentDirectory = "home";
+// Store directory navigation history
+const directoryHistory = [];
+
+// Directory display names
+const folderNames = {
+    home: "Início",
+    documents: "Documentos",
+    images: "Imagens",
+    downloads: "Downloads"
+};
+
+// Display files and folders in the current directory
+function renderFiles() {
+
+    // Clear the current file list
+    filesList.innerHTML = "";
+
+    // Update the current directory name
+    currentFolder.textContent = folderNames[currentDirectory];
+
+    // Get the contents of the current directory
+    const items = fileSystem[currentDirectory];
+
+    // Display each item
+    items.forEach(function(item) {
+
+        // Create a file or folder element
+        const fileElement = document.createElement("div");
+
+        // Set the element class
+        fileElement.classList.add("file-item");
+
+
+        // Choose an icon based on the item type and extension
+        let icon;
+
+        if (item.type === "folder") {
+
+            icon = "📁";
+
+        } else if (item.name.toLowerCase().endsWith(".png")) {
+
+            icon = "🖼️";
+
+        } else if (item.name.toLowerCase().endsWith(".zip")) {
+
+            icon = "📦";
+
+        } else {
+
+            icon = "📄";
+
+        }
+
+        // Create the icon element
+        const iconElement = document.createElement("span");
+        iconElement.classList.add("file-icon");
+        iconElement.textContent = icon;
+
+        // Create the name element
+        const nameElement = document.createElement("span");
+        nameElement.classList.add("file-name");
+        nameElement.textContent = item.name;
+
+        // Add elements to the file item
+        fileElement.appendChild(iconElement);
+        fileElement.appendChild(nameElement);
+
+
+        // Handle item click
+        fileElement.addEventListener("click", function() {
+
+            if (item.type === "folder") {
+
+                // Navigate to the selected folder
+                navigateToDirectory(item.target);
+
+            } else {
+
+                // Open the selected file
+                openFile(item);
+
+            }
+
+        });
+
+        // Add the item to the file list
+        filesList.appendChild(fileElement);
+
+    });
+
+}
+
+// Open a file in the File Preview window
+function openFile(file) {
+
+    // Reset the preview elements
+    previewText.classList.add("hidden");
+    previewImage.classList.add("hidden");
+    previewMessage.classList.add("hidden");
+
+    // Update the preview title
+    previewTitle.textContent = file.name;
+
+    // Check the file extension
+    const extension = file.name.split(".").pop().toLowerCase();
+
+    if (extension === "txt") {
+
+        // Display text file content
+        previewText.textContent = fileContents[file.name] || "Conteúdo indisponível.";
+        previewText.classList.remove("hidden");
+
+    } else if (extension === "png") {
+
+        // Display the selected image
+        previewImage.src = "assets/images/" + file.name;
+        previewImage.alt = file.name;
+
+        // Show the image element
+        previewImage.classList.remove("hidden");
+
+    } else if (extension === "zip") {
+
+        // Display compressed archive information
+        previewMessage.textContent =
+            "ARQUIVO COMPACTADO\n\n" +
+            "Nome: " + file.name + "\n" +
+            "Formato: ZIP\n" +
+            "Tipo: Arquivo compactado\n\n" +
+            "Este arquivo representa um pacote de atualizacao " +
+            "do NEXUS OS.\n\n" +
+            "Status: Arquivo demonstrativo\n\n" +
+            "A extracao e instalacao ainda nao estao disponiveis.";
+
+        // Show archive information
+        previewMessage.classList.remove("hidden");
+
+    } else {
+
+        // Display unsupported file message
+        previewMessage.textContent = "Formato de arquivo não reconhecido.";
+        previewMessage.classList.remove("hidden");
+
+    }
+
+    // Open the preview window
+    openWindow(previewWindow);
+
+}
+
+// Navigate to another directory
+function navigateToDirectory(directory) {
+
+    // Save the current directory in history
+    directoryHistory.push(currentDirectory);
+
+    // Change the current directory
+    currentDirectory = directory;
+
+    // Update the displayed files
+    renderFiles();
+
+}
+
+// Return to the previous directory
+backFolder.addEventListener("click", function() {
+
+    // Check if there is a previous directory
+    if (directoryHistory.length > 0) {
+
+        // Restore the previous directory
+        currentDirectory = directoryHistory.pop();
+
+        // Update the displayed files
+        renderFiles();
+
+    }
+
+});
+
+// Navigate using the sidebar
+document.querySelectorAll(".folder-button").forEach(function(button) {
+
+    button.addEventListener("click", function() {
+
+        navigateToDirectory(button.dataset.folder);
+
+    });
+
+});
+
 // WINDOW SYSTEM
 
 // Window focus management

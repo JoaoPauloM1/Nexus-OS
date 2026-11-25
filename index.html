@@ -102,7 +102,7 @@
             <!-- Desktop applications -->
             <div class="desktop-icons">
 
-                <div class="desktop-icon">
+                <div class="desktop-icon" id="files-icon">
                     <span>▤</span>
                     <p>Arquivos</p>
                 </div>
@@ -171,6 +171,78 @@
                         <input type="text" id="terminal-input" autocomplete="off">
 
                     </div>
+
+                </div>
+
+            </div>
+
+            <!-- File Manager application window -->
+            <div id="files-window" class="app-window hidden">
+
+                <div class="window-header">
+
+                    <h3>Gerenciador de Arquivos</h3>
+
+                    <button id="close-files">✕</button>
+
+                </div>
+
+                <div class="files-content">
+
+                    <!-- File Manager sidebar -->
+                    <aside class="files-sidebar">
+
+                        <button class="folder-button" data-folder="home">Início</button>
+                        <button class="folder-button" data-folder="documents">Documentos</button>
+                        <button class="folder-button" data-folder="images">Imagens</button>
+                        <button class="folder-button" data-folder="downloads">Downloads</button>
+
+                    </aside>
+
+                    <!-- Main file area -->
+                    <main class="files-main">
+
+                        <div class="files-toolbar">
+
+                            <button id="back-folder">← Voltar</button>
+
+                            <span id="current-folder">Início</span>
+
+                        </div>
+
+                        <div id="files-list">
+
+                            <!-- Files and folders will appear here -->
+
+                        </div>
+
+                    </main>
+
+                </div>
+
+            </div>
+
+            <!-- File Preview application window -->
+            <div id="file-preview-window" class="app-window hidden">
+
+                <div class="window-header">
+
+                    <h3 id="preview-title">Visualizador de Arquivos</h3>
+
+                    <button id="close-preview">✕</button>
+
+                </div>
+
+                <div class="file-preview-content">
+
+                    <!-- Text file preview -->
+                    <pre id="file-preview-text"></pre>
+
+                    <!-- Image file preview -->
+                    <img id="file-preview-image" class="hidden" alt="Pré-visualização da imagem">
+
+                    <!-- File information message -->
+                    <p id="file-preview-message" class="hidden"></p>
 
                 </div>
 
